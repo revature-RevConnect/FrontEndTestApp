@@ -1,0 +1,24 @@
+<fieldset>
+<h3>Post Title-{{post.title}}</h3>
+<app-postauthor [post]="post"
+></app-postauthor>
+<td>Post Body-{{post.body}}</td>
+
+<small><app-likes
+[postLikes]="postLikes"
+></app-likes></small>
+
+<app-commentfeed>   
+</app-commentfeed>
+
+<app-add-like
+(onSubmitLike)="submitLike()"
+></app-add-like>
+
+<app-add-comment>
+(onSubmitComment)="submitComment()"
+[authID]="authID"
+</app-add-comment>
+
+</fieldset>
+<br>

@@ -1,0 +1,11 @@
+<h2>Post News Feed</h2>
+<app-add-post 
+*ngIf="auth.user$ | async as user"
+[authID]="user.sub"
+(onSubmitPost)="addNewPost($event)"
+></app-add-post>
+<app-postfeed 
+*ngIf="auth.user$ | async as user"
+[authID]="user.sub"
+[posts]="posts"
+></app-postfeed>

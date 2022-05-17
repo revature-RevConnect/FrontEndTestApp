@@ -1,0 +1,18 @@
+<h5>Make a new Post</h5>
+<div >
+    <form  #postForm="ngForm" class="addPost" (ngSubmit)="onSubmit(); postForm.reset()">  
+        <div>
+            <label for="ID">Title</label>
+            <input type="textbox" name="title" required [(ngModel)]="title" id="title" placeholder="Enter title"/>
+        </div>
+        <div>
+            <label for="ID" style="vertical-align:top">Post</label>
+            <textarea type="text" name="price" required [(ngModel)]="body" id="body" placeholder="Enter Post" style="width: 300px; height: 70px"></textarea>
+        </div>
+        <div>       
+            <input type="submit" value="Save" class="btn"[ngStyle]="{'background-color':'green'}" [disabled]="!title || !body"/>
+            <!--<input type="reset" value="Close" class="btn" [ngStyle]="{'background-color':'red'}" (click)="toggleMenuItemForm();menuItemForm.reset()"/>-->
+        </div>
+       
+    </form>
+    </div>

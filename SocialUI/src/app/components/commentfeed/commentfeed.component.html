@@ -1,0 +1,4 @@
+<button>View Comments</button>
+<div *ngIf="showComments">
+    <app-comment *ngFor="let comment of comments"></app-comment>
+</div>

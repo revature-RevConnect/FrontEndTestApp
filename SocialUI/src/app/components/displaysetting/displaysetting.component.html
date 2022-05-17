@@ -1,0 +1,30 @@
+
+<li>postID-{{userSocial.userID}}  authID-{{userSocial.authID}}</li>
+<br>
+<h5>Current Profile Picture</h5>
+<img [src]="userSocial.profilePicture" width="150" height="150">
+<form #pictureForm="ngForm" class="addPicture" (ngSubmit)="submitPicture(); pictureForm.reset()">
+    <div>
+        <label for="ID">New Picture</label>
+        <td><input type="textbox" name="picture" required [(ngModel)]="picture" id="picture" placeholder="Enter Picture URL"/></td>
+        <td><input type="submit" value="Save" class="btn"[ngStyle]="{'background-color':'green'}" [disabled]="!picture"/></td>
+    </div> 
+</form>
+
+<h5>Current Username -{{userSocial.name}}</h5>
+<form #usernameForm="ngForm" (ngSubmit)="submitUsername(); usernameForm.reset()">
+    <div>
+        <label for="ID">Change Username</label>
+        <td><input type="textbox" name="name" required [(ngModel)]="name" id="picture" placeholder="Enter New Username"/></td>
+        <td> <input type="submit" value="Submit" class="btn"[ngStyle]="{'background-color':'green'}" [disabled]="!name"/></td>
+    </div>
+</form>
+<h5>Current About Me -{{userSocial.aboutMe}}</h5>
+<form #aboutMeForm="ngForm" (ngSubmit)="submitAboutMe(); aboutMeForm.reset()">
+    <div>
+        <label for="ID">Change About Me</label>
+        <td><input type="textbox" name="aboutMe" required [(ngModel)]="aboutMe" id="aboutMe" placeholder="Enter New About Me"/></td>
+        <td> <input type="submit" value="Submit" class="btn"[ngStyle]="{'background-color':'green'}" [disabled]="!aboutMe"/></td>
+    </div>
+</form>
+
