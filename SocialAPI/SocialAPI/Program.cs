@@ -37,8 +37,8 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.Authority = "https://dev-d63d2wc5.us.auth0.com/";
-    options.Audience = "https://socialAPI/";
+    options.Authority = "YOUR API DOMAIN HERE";
+    options.Audience = "YOUR API AUDIENCE HERE";
 });
 
 // Adding Auth0 Config to Swagger
@@ -74,7 +74,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<SocialContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RevConnect"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("YOUR CONNECTION STRING HERE"));
 });
 
 var app = builder.Build();
