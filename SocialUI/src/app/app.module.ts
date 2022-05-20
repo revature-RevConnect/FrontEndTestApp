@@ -67,7 +67,7 @@ import { PostauthorComponent } from './components/postauthor/postauthor.componen
       httpInterceptor: {
         allowedList: [
           {
-            uri: 'API URL',
+            uri: "API URL/*",
             tokenOptions: {
               audience: 'AUDIENCE FOR API',
             }

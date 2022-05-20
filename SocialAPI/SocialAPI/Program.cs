@@ -42,8 +42,13 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
+<<<<<<< HEAD
     options.Authority = "https://dev-d63d2wc5.us.auth0.com/";
     options.Audience = "https://TestRevConnect/api";
+=======
+    options.Authority = "YOUR API DOMAIN HERE";
+    options.Audience = "YOUR API AUDIENCE HERE";
+>>>>>>> cef2cb7398e5ce5ede05a383a85e714980563612
 });
 
 //Adding Auth0 Config to Swagger
@@ -88,7 +93,11 @@ builder.Services.AddSingleton<BlobConfig>(_ => new BlobConfig()
 
 builder.Services.AddDbContext<SocialContext>(options =>
 {
+<<<<<<< HEAD
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestRevConnect"));
+=======
+    options.UseSqlServer(builder.Configuration.GetConnectionString("YOUR CONNECTION STRING HERE"));
+>>>>>>> cef2cb7398e5ce5ede05a383a85e714980563612
 });
 
 
