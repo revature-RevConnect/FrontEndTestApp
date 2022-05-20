@@ -4,16 +4,16 @@
 
 namespace SocialAPI.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class TestRevConnect : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "RevSocial");
+                name: "TestRevConnect");
 
             migrationBuilder.CreateTable(
                 name: "Posts",
-                schema: "RevSocial",
+                schema: "TestRevConnect",
                 columns: table => new
                 {
                     postID = table.Column<int>(type: "int", nullable: false)
@@ -29,7 +29,7 @@ namespace SocialAPI.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                schema: "RevSocial",
+                schema: "TestRevConnect",
                 columns: table => new
                 {
                     userID = table.Column<int>(type: "int", nullable: false)
@@ -53,7 +53,7 @@ namespace SocialAPI.Data.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Comments",
-                schema: "RevSocial",
+                schema: "TestRevConnect",
                 columns: table => new
                 {
                     commentID = table.Column<int>(type: "int", nullable: false)
@@ -68,14 +68,14 @@ namespace SocialAPI.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Comments_Posts_postID",
                         column: x => x.postID,
-                        principalSchema: "RevSocial",
+                        principalSchema: "TestRevConnect",
                         principalTable: "Posts",
                         principalColumn: "postID");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Likes",
-                schema: "RevSocial",
+                schema: "TestRevConnect",
                 columns: table => new
                 {
                     likeID = table.Column<int>(type: "int", nullable: false)
@@ -90,32 +90,32 @@ namespace SocialAPI.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Likes_Comments_commentID",
                         column: x => x.commentID,
-                        principalSchema: "RevSocial",
+                        principalSchema: "TestRevConnect",
                         principalTable: "Comments",
                         principalColumn: "commentID");
                     table.ForeignKey(
                         name: "FK_Likes_Posts_postID",
                         column: x => x.postID,
-                        principalSchema: "RevSocial",
+                        principalSchema: "TestRevConnect",
                         principalTable: "Posts",
                         principalColumn: "postID");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_postID",
-                schema: "RevSocial",
+                schema: "TestRevConnect",
                 table: "Comments",
                 column: "postID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_commentID",
-                schema: "RevSocial",
+                schema: "TestRevConnect",
                 table: "Likes",
                 column: "commentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_postID",
-                schema: "RevSocial",
+                schema: "TestRevConnect",
                 table: "Likes",
                 column: "postID");
         }
@@ -124,19 +124,19 @@ namespace SocialAPI.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Likes",
-                schema: "RevSocial");
+                schema: "TestRevConnect");
 
             migrationBuilder.DropTable(
                 name: "Users",
-                schema: "RevSocial");
+                schema: "TestRevConnect");
 
             migrationBuilder.DropTable(
                 name: "Comments",
-                schema: "RevSocial");
+                schema: "TestRevConnect");
 
             migrationBuilder.DropTable(
                 name: "Posts",
-                schema: "RevSocial");
+                schema: "TestRevConnect");
         }
     }
 }

@@ -1,13 +1,18 @@
 using SocialAPI.Data.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
+using SocialAPI.Controllers;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
+ILogger<Program> logger = loggerFactory.CreateLogger<Program>();
+logger.LogInformation("test");
 
 // Add services to the container.
 
@@ -38,10 +43,10 @@ builder.Services.AddAuthentication(options =>
 }).AddJwtBearer(options =>
 {
     options.Authority = "https://dev-d63d2wc5.us.auth0.com/";
-    options.Audience = "https://socialAPI/";
+    options.Audience = "https://TestRevConnect/api";
 });
 
-// Adding Auth0 Config to Swagger
+//Adding Auth0 Config to Swagger
 builder.Services.AddSwaggerGen(c =>
 {
 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyProject", Version = "v1.0.0" });
@@ -72,10 +77,21 @@ c.AddSecurityRequirement(new OpenApiSecurityRequirement
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+string connection = builder.Configuration.GetConnectionString("RevConnectPhoto");
+
+builder.Services.AddSingleton<BlobConfig>(_ => new BlobConfig()
+{
+    _connection = connection
+});
+
+
+
 builder.Services.AddDbContext<SocialContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RevConnect"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TestRevConnect"));
 });
+
+
 
 var app = builder.Build();
 

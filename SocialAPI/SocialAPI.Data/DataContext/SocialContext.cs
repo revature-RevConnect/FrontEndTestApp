@@ -18,7 +18,7 @@ namespace SocialAPI.Data.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("RevSocial");
+            modelBuilder.HasDefaultSchema("TestRevConnect");
         }
 
     }

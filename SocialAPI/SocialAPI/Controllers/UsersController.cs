@@ -68,6 +68,26 @@ namespace SocialAPI.Controllers
 
             return new ContentResult() { StatusCode = 200 };
         }
+        [HttpPut("inactive")]
+        public async Task<ActionResult> SetUserToInactive(User oldUser)
+        {
+            var user=await _sc.Users
+                    .Where(b => b.authID == oldUser.authID).FirstAsync();
+            user.active = oldUser.active;
+            await _sc.SaveChangesAsync();
+
+            return new ContentResult() { StatusCode = 200 };
+        }
+        [HttpPut("active")]
+        public async Task<ActionResult> SetUserToActive(User newUser)
+        {
+            var user = await _sc.Users
+                    .Where(b => b.authID == newUser.authID).FirstAsync();
+            user.active = newUser.active;
+            await _sc.SaveChangesAsync();
+
+            return new ContentResult() { StatusCode = 200 };
+        }
     }
     
 }

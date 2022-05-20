@@ -27,8 +27,10 @@ export class ApiService {
     return this.http.post<Post>(`${url}/Posts`, post, httpOptions);
   }
 
-  updatePicture(user:UserSocial):Observable<UserSocial>{
-    return this.http.put<UserSocial>(`${url}/Users/picture`, user ,httpOptions);
+  postPicture(photo:any):Observable<UserSocial>{
+    console.log(photo.data);
+    console.log(`${url}/Photos/images?authID=${photo.authID}`);
+    return this.http.post<UserSocial>(`${url}/Photos/images?authID=${photo.authID}`, photo.data);
   }
 
   updateUsername(user:UserSocial):Observable<UserSocial>{

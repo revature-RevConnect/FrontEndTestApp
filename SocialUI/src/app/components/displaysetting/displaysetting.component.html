@@ -1,15 +1,14 @@
 
 <li>postID-{{userSocial.userID}}  authID-{{userSocial.authID}}</li>
 <br>
-<h5>Current Profile Picture</h5>
 <img [src]="userSocial.profilePicture" width="150" height="150">
-<form #pictureForm="ngForm" class="addPicture" (ngSubmit)="submitPicture(); pictureForm.reset()">
-    <div>
-        <label for="ID">New Picture</label>
-        <td><input type="textbox" name="picture" required [(ngModel)]="picture" id="picture" placeholder="Enter Picture URL"/></td>
-        <td><input type="submit" value="Save" class="btn"[ngStyle]="{'background-color':'green'}" [disabled]="!picture"/></td>
-    </div> 
-</form>
+<h5>Current Profile Picture</h5>
+<div class="media-body ml-4">
+    <td><label>
+      <input  type="file" class="account-settings-fileinput" (change)="onFileSelected($event)" >
+    </label> </td>
+    <td><button class="btn" (click)="onUpload()">Submit</button></td>
+</div>
 
 <h5>Current Username -{{userSocial.name}}</h5>
 <form #usernameForm="ngForm" (ngSubmit)="submitUsername(); usernameForm.reset()">

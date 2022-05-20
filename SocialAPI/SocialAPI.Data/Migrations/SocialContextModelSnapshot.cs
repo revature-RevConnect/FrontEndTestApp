@@ -17,7 +17,7 @@ namespace SocialAPI.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("RevSocial")
+                .HasDefaultSchema("TestRevConnect")
                 .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -45,7 +45,7 @@ namespace SocialAPI.Data.Migrations
 
                     b.HasIndex("postID");
 
-                    b.ToTable("Comments", "RevSocial");
+                    b.ToTable("Comments", "TestRevConnect");
                 });
 
             modelBuilder.Entity("SocialAPI.Data.Models.Like", b =>
@@ -72,7 +72,7 @@ namespace SocialAPI.Data.Migrations
 
                     b.HasIndex("postID");
 
-                    b.ToTable("Likes", "RevSocial");
+                    b.ToTable("Likes", "TestRevConnect");
                 });
 
             modelBuilder.Entity("SocialAPI.Data.Models.Post", b =>
@@ -95,7 +95,7 @@ namespace SocialAPI.Data.Migrations
 
                     b.HasKey("postID");
 
-                    b.ToTable("Posts", "RevSocial");
+                    b.ToTable("Posts", "TestRevConnect");
                 });
 
             modelBuilder.Entity("SocialAPI.Data.Models.User", b =>
@@ -142,7 +142,7 @@ namespace SocialAPI.Data.Migrations
 
                     b.HasKey("userID");
 
-                    b.ToTable("Users", "RevSocial");
+                    b.ToTable("Users", "TestRevConnect");
                 });
 
             modelBuilder.Entity("SocialAPI.Data.Models.Comment", b =>
