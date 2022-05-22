@@ -1,11 +1,10 @@
 <div >
     <form  #commentForm="ngForm" class="addPost" (ngSubmit)="onSubmit(); commentForm.reset()">     
-        <label for="ID">Add Comment</label>
         <td>
-            <input type="textbox" name="body" required [(ngModel)]="body" id="body" placeholder="Enter Comment"/>
+            <input type="textbox" name="body" required [(ngModel)]="body" id="body" placeholder="Comment on this post!"/>
         </td>
         <td>       
-            <input type="submit" value="Save" [disabled]="!body"/>
+            <input type="submit" value="Comment" [disabled]="!body"/>
         </td>
        
     </form>

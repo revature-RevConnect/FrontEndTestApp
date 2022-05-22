@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 
 
 @Component({
@@ -8,13 +9,39 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class AddLikeComponent implements OnInit {
   @Output() onSubmitLike:EventEmitter<any>=new EventEmitter();
+  @Input() postLikes!: any[];
+  @Input()authID:any;
+  postLike!:any;
+  user!:any;
+  alreadyliked!:boolean;
 
-  constructor() { }
+  constructor(private auth:AuthService) { }
 
   ngOnInit(): void {
   }
   submitLike(){
-    this.onSubmitLike.emit()
+    this.onSubmitLike.emit(this.alreadyliked)
+  }
+
+  checkForUserInLikes(){
+    if(this.postLikes.length===0)
+    {
+      this.alreadyliked=false;
+      this.submitLike();
+    }
+    for(let i=0; i<this.postLikes.length; i++ )
+    {
+      if(this.postLikes[i].authID===this.authID)
+      {
+        this.alreadyliked=true;
+        this.submitLike()
+      }
+      else if(i===this.postLikes.length-1)
+      {
+        this.alreadyliked=false;
+        this.submitLike();
+      }
+    }
   }
 
 }

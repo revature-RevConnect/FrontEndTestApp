@@ -11,7 +11,7 @@ export class AddPostComponent implements OnInit {
   @Output() onSubmitPost: EventEmitter<Post>=new EventEmitter();
   body!: string;
   title!:string;
-  @Input() authID!:any;
+  @Input() authID:any;
   constructor(public auth:AuthService) { }
 
   ngOnInit(): void {

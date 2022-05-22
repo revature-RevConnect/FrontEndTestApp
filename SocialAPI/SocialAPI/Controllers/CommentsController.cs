@@ -43,6 +43,14 @@ namespace SocialAPI.Controllers
 
             return comments.ToList();
         }
+        [HttpGet("all/{postID}")]
+        public async Task<ActionResult<List<Comment>>> GetAllByID(int postID)
+        {
+            var comments = await _sc.Comments
+                .Where(b => b.postID == postID).ToListAsync();
+
+            return comments.ToList();
+        }
 
     }   
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SocialAPI.Data.DataContext;
 using SocialAPI.Data.Models;
@@ -36,6 +37,7 @@ namespace SocialAPI.Controllers
             return posts.ToList();
         }
         [HttpGet("all")]
+        
         public async Task<ActionResult<List<Post>>> Get()
         {
             var posts = await _sc.Posts.OrderByDescending(i=>i.postID).ToListAsync();

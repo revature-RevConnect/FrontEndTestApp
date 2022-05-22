@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from 'src/Interfaces/Comment';
 
 @Component({
@@ -8,7 +8,7 @@ import { Comment } from 'src/Interfaces/Comment';
 })
 export class CommentfeedComponent implements OnInit {
   showComments!:boolean;
-  comments!:Comment[];
+  @Input() comments!:Comment[];
 
   constructor() { }
 

@@ -37,7 +37,7 @@ namespace SocialAPI.Controllers
         public async Task<ActionResult<User>> upload([FromQuery] string authID, IFormFile postedFile)
         {
  
-            string path = $"https://dangagne.blob.core.windows.net/revconnect/{authID}";
+            string path = $"https://dangagne.blob.core.windows.net/revconnect/{postedFile.FileName}";
             var user = await _sc.Users
                     .Where(b => b.authID == authID).FirstAsync();
             user.profilePicture = path;
@@ -45,7 +45,7 @@ namespace SocialAPI.Controllers
 
 
            BlobContainerClient container = new BlobContainerClient(_config._connection, "revconnect");
-           BlobClient blob = container.GetBlobClient(authID);
+           BlobClient blob = container.GetBlobClient(postedFile.FileName);
             await blob.UploadAsync(
                 postedFile.OpenReadStream(),
                 new BlobHttpHeaders 

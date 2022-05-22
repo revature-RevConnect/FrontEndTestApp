@@ -36,16 +36,6 @@ namespace SocialAPI.Controllers
             
         }
 
-        [HttpPut("picture")]
-        public async Task<ActionResult<User>> ChangePicture(User user)
-        {
-            var newUser = await _sc.Users
-                        .Where(b => b.authID == user.authID).FirstAsync();
-            newUser.profilePicture = user.profilePicture;
-            await _sc.SaveChangesAsync();
-
-            return new ContentResult() { StatusCode = 200 };
-        }
 
         [HttpPut("username")]
         public async Task<ActionResult<User>> ChangeUsername(User user)
@@ -84,6 +74,39 @@ namespace SocialAPI.Controllers
             var user = await _sc.Users
                     .Where(b => b.authID == newUser.authID).FirstAsync();
             user.active = newUser.active;
+            await _sc.SaveChangesAsync();
+
+            return new ContentResult() { StatusCode = 200 };
+        }
+
+        [HttpPut("phone")]
+        public async Task<ActionResult<User>> ChangePhoneNumber(User user)
+        {
+            var newUser = await _sc.Users
+                        .Where(b => b.authID == user.authID).FirstAsync();
+            newUser.aboutMe = user.aboutMe;
+            await _sc.SaveChangesAsync();
+
+            return new ContentResult() { StatusCode = 200 };
+        }
+
+        [HttpPut("email")]
+        public async Task<ActionResult<User>> ChangeEmail(User user)
+        {
+            var newUser = await _sc.Users
+                        .Where(b => b.authID == user.authID).FirstAsync();
+            newUser.aboutMe = user.aboutMe;
+            await _sc.SaveChangesAsync();
+
+            return new ContentResult() { StatusCode = 200 };
+        }
+
+        [HttpPut("address")]
+        public async Task<ActionResult<User>> ChangeAddress(User user)
+        {
+            var newUser = await _sc.Users
+                        .Where(b => b.authID == user.authID).FirstAsync();
+            newUser.aboutMe = user.aboutMe;
             await _sc.SaveChangesAsync();
 
             return new ContentResult() { StatusCode = 200 };

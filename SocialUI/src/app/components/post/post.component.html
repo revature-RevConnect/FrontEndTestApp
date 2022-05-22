@@ -1,24 +1,39 @@
 <fieldset>
 <h3>Post Title-{{post.title}}</h3>
-<app-postauthor [post]="post"
-></app-postauthor>
+<div *ngIf="postAuthor!=undefined">
+<img [src]="postAuthor.profilePicture" width="50" height="50">
+<small>{{postAuthor.name}}</small>
+</div>
 <td>Post Body-{{post.body}}</td>
 
-<small><app-likes
+
+<span>
+    <app-add-like
+    (onSubmitLike)="submitLike($event)"
+    [postLikes]="postLikes"
+    [authID]="authID"
+    ></app-add-like>
+    </span>
+<small *ngIf="postLikes!=undefined"><app-likes
 [postLikes]="postLikes"
 ></app-likes></small>
 
-<app-commentfeed>   
+
+<app-commentfeed 
+*ngIf="postComments!=undefined"
+[comments]="postComments">   
 </app-commentfeed>
 
-<app-add-like
-(onSubmitLike)="submitLike()"
-></app-add-like>
 
-<app-add-comment>
-(onSubmitComment)="submitComment()"
+
+
+<app-add-comment 
+(onSubmitComment)="submitComment($event)"
 [authID]="authID"
-</app-add-comment>
+[postID]="post.postID"
+></app-add-comment>
+
+
 
 </fieldset>
 <br>

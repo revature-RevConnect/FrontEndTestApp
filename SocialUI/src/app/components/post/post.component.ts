@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { Post } from 'src/Interfaces/Post';
 import { Like } from 'src/Interfaces/Like';
 import { Comment } from 'src/Interfaces/Comment';
+import { UserSocial } from 'src/Interfaces/UserSocial';
 
 @Component({
   selector: 'app-post',
@@ -15,29 +16,44 @@ export class PostComponent implements OnInit {
   @Input() authID:any;
   postLikes!:Like[];
   postComments!:Comment[];
+  postAuthor!:UserSocial;
+  newLike!:any;
+  receivedLike:any;
 
   constructor(public auth:AuthService, private api:ApiService) { }
 
   ngOnInit(): void {
-    this.api.getAllPostLikes(this.post.postID).subscribe((likes)=>this.postLikes=likes);
-    this.api.getAllPostComments(this.post.postID).subscribe((comments)=>this.postComments=comments);
+    this.api.getAllPostLikes(this.post.postID).subscribe((likes)=>this.postLikes=likes),
+    this.api.getCurrentUser(this.post.authID).subscribe((author)=>this.postAuthor=author);
+    this.api.getAllPostComments(this.post.postID).subscribe((comments)=>this.postComments=comments)
     
   }
 
-  submitLike(){
-    const newLike={
-      likeID:0,
-      postLikeID:this.post.postID,
-      commentLikeID:0,
-      authID:this.authID
-
+  submitLike(alreadyliked:boolean){
+    if(alreadyliked===true)
+    {
+      const newLike={
+        likeID:-1,
+        postID:this.post.postID,
+        commentID:null,
+        authID:this.authID
+      }
+      this.api.likePost(newLike).subscribe((like)=>(this.postLikes.pop()));
     }
-    console.log(newLike);
-    this.api.likePost(newLike).subscribe((like)=>(this.postLikes.push(like)));
+    else{
+      const newLike={
+        likeID:0,
+        postID:this.post.postID,
+        commentID:null,
+        authID:this.authID
+      }
+      this.api.likePost(newLike).subscribe((like)=>(this.postLikes.push(like)));
+    }
   }
 
   submitComment(newComment:Comment){
-    this.api.commentOnPost(newComment).subscribe
+    this.api.commentOnPost(newComment).subscribe((data)=>(this.postComments.push(data)));
+    console.log(newComment);
   }
 
 }

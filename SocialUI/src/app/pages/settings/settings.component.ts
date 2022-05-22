@@ -20,6 +20,17 @@ export class SettingsComponent implements OnInit {
     this.auth.user$.subscribe((data)=>this.user=data)
   }
 
+  // onSubmit(){
+  //   console.log(this.user);
+  //   this.userSocial={
+  //     authID:this.user.sub,
+  //     username:this.user.email,
+  //     profilePicture:this.picture
+  //   }
+  //   console.log(this.userSocial);
+  //   this.onSubmitPicture.emit(this.userSocial);
+  // }
+
   getUserProfile(){
     this.api.getCurrentUser(this.user.sub).subscribe((data)=>this.userSocial=data);
     console.log(this.userSocial);
@@ -27,6 +38,9 @@ export class SettingsComponent implements OnInit {
 
   updateUserPicture(photo:any){
     this.api.postPicture(photo).subscribe((data)=>this.user=data);
+    //this.api.updatePicture(userSocial).subscribe((data)=>this.user=data);
+    //console.log(userSocial);
+    //window.location.replace('/settings')
   }
 
   updateUsername(userSocial:UserSocial){

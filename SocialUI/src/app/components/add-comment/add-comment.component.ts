@@ -10,6 +10,7 @@ export class AddCommentComponent implements OnInit {
   body!:string;
   @Output() onSubmitComment:EventEmitter<Comment> = new EventEmitter();
   @Input() authID:any;
+  @Input() postID:any;
 
   constructor() { }
 
@@ -21,8 +22,10 @@ export class AddCommentComponent implements OnInit {
       commentID:0,
       body:this.body, 
       authID:this.authID,
+      postID:this.postID,
       commentLikes:null     
     }
+    console.log(newComment)
     this.onSubmitComment.emit(newComment)
 
   }

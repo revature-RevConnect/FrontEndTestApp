@@ -27,7 +27,20 @@ namespace SocialAPI.Controllers
         [HttpPost("post")]
         public async Task <ActionResult<Like>> LikePost(Like newLike)
         {
-            await _sc.Likes.AddRangeAsync(newLike);
+            var likeExists =await _sc.Likes.
+                Where(b => b.postID == newLike.postID && b.authID == newLike.authID).FirstOrDefaultAsync();
+
+            if (likeExists != null)
+            {
+                _sc.Likes.Remove(likeExists);
+                await _sc.SaveChangesAsync();
+                return new Like() { likeID = -1, authID=likeExists.authID };
+            }
+            else
+            {
+                await _sc.Likes.AddRangeAsync(newLike);
+            }
+            //await _sc.Likes.AddRangeAsync(newLike);
 
             await _sc.SaveChangesAsync();
             return newLike;

@@ -1,8 +1,9 @@
 
 <h2>Profile</h2>
-    <app-displayprofile 
-    *ngIf="auth.user$ | async as user"
-    [user]="user"
-    ></app-displayprofile>
+
+<app-displayprofile 
+*ngIf="auth.user$ | async as user"
+[user]="user"  
+></app-displayprofile>
 
 

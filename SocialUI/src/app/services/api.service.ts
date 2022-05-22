@@ -9,11 +9,15 @@ import { AuthService } from '@auth0/auth0-angular';
 
 const httpOptions ={
   headers: new HttpHeaders({
-    'Content-Type': 'application/problem+json',
+    'Content-Type': 'application/json',
   }),
 };
 
-const url='YOUR API URL HERE'
+
+//const url='https://revceonnectapi.azurewebsites.net'
+
+//group test api
+const url='https://testrevconnect.azurewebsites.net'
 
 @Injectable({
   providedIn: 'root'
@@ -27,21 +31,28 @@ export class ApiService {
     return this.http.post<Post>(`${url}/Posts`, post, httpOptions);
   }
 
-  postPicture(photo:any):Observable<UserSocial>{
-    console.log(photo.data);
-    console.log(`${url}/Photos/images?authID=${photo.authID}`);
-    return this.http.post<UserSocial>(`${url}/Photos/images?authID=${photo.authID}`, photo.data);
+  updatePicture(user:UserSocial):Observable<UserSocial>{
+    return this.http.put<UserSocial>(`${url}/Users/picture`, user ,httpOptions);
   }
+
+
+  postPicture(photo:any):Observable<UserSocial>{
+    return this.http.post<UserSocial>(`${url}/Photos/images?authID=${photo.authID}`, photo.data);   
+  }
+  
 
   updateUsername(user:UserSocial):Observable<UserSocial>{
     return this.http.put<UserSocial>(`${url}/Users/username`, user ,httpOptions);
   }
 
   updateAboutMe(user:UserSocial):Observable<UserSocial>{
-    return this.http.put<UserSocial>(`${url}/Users/aboutMe`, user ,httpOptions);
+    return this.http.put<UserSocial>(`${url}/Users/aboutMe`, user, httpOptions);
   }
   getCurrentUser(authID:any):Observable<UserSocial>{
     return this.http.get<UserSocial>(`${url}/Users/${authID}`);
+  }
+  setUserToInactive(user:any):Observable<any>{
+    return this.http.put<UserSocial>(`${url}/Users/inactive`, user, httpOptions);
   }
 
   getAllPosts():Observable<Post[]>{

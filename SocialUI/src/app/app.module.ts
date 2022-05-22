@@ -26,7 +26,6 @@ import { LikesComponent } from './components/likes/likes.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { DisplayprofileComponent } from './components/displayprofile/displayprofile.component';
 import { DisplaysettingComponent } from './components/displaysetting/displaysetting.component';
-import { PostauthorComponent } from './components/postauthor/postauthor.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,6 @@ import { PostauthorComponent } from './components/postauthor/postauthor.componen
     LoadingComponent,
     DisplayprofileComponent,
     DisplaysettingComponent,
-    PostauthorComponent
   ],
   imports: [
     BrowserModule,
@@ -59,17 +57,25 @@ import { PostauthorComponent } from './components/postauthor/postauthor.componen
     AppRoutingModule,
     HttpClientModule,
     AuthModule.forRoot({
-      domain: 'YOUR DOMAIN HERE',
-      clientId: 'YOUR CLIENT ID HERE',
-      audience: "AUDIENCE FOR API",
-      apiUri: "API URL",
+      domain: 'dev-d63d2wc5.us.auth0.com',
+      clientId: 'P4JlEHEDUAuT1qZ8EMlTMUckKT9pIKR5',
+      audience: 'https://TestRevConnect/api',
+      //audience: "https://socialAPI/",
+      apiUri: "https://testrevconnect.azurewebsites.net",
+      //apiUri: "https://revceonnectapi.azurewebsites.net",
       appUri: "http://localhost:4200",
       httpInterceptor: {
         allowedList: [
           {
-            uri: "API URL/*",
+            uri: 'https://revceonnectapi.azurewebsites.net/*',
             tokenOptions: {
-              audience: 'AUDIENCE FOR API',
+              audience: 'https://socialAPI/',
+            }
+          },
+          {
+            uri:'https://testrevconnect.azurewebsites.net/*',
+            tokenOptions:{
+              audience: 'https://TestRevConnect/api'
             }
           }
         ]

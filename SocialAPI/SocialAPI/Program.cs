@@ -5,29 +5,28 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using SocialAPI.Controllers;
-using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-using Azure.Storage.Blobs;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
-using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
-ILogger<Program> logger = loggerFactory.CreateLogger<Program>();
-logger.LogInformation("test");
-
-// Add services to the container.
+//using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace).AddConsole());
+//ILogger<Program> logger = loggerFactory.CreateLogger<Program>();
+//logger.LogInformation("test");
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.AllowAnyOrigin()
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
-                      });
+        builder =>
+        {
+            builder.SetIsOriginAllowed(origin=> true)
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials();
+        });
 });
 
+
+
+//sets controllers to need authentication to process http requests
 builder.Services.AddControllers(options =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -36,19 +35,15 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(new AuthorizeFilter(policy));
 });
 
+//Adds authentication and sets authority and audience from Auth0
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-<<<<<<< HEAD
     options.Authority = "https://dev-d63d2wc5.us.auth0.com/";
     options.Audience = "https://TestRevConnect/api";
-=======
-    options.Authority = "YOUR API DOMAIN HERE";
-    options.Audience = "YOUR API AUDIENCE HERE";
->>>>>>> cef2cb7398e5ce5ede05a383a85e714980563612
 });
 
 //Adding Auth0 Config to Swagger
@@ -80,24 +75,23 @@ c.AddSecurityRequirement(new OpenApiSecurityRequirement
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
 
 string connection = builder.Configuration.GetConnectionString("RevConnectPhoto");
+//string connection = builder.Configuration.GetConnectionString("Photo");
 
+//sets up blobconfig needed to access blob storage in photoscontroller
 builder.Services.AddSingleton<BlobConfig>(_ => new BlobConfig()
 {
     _connection = connection
 });
 
 
-
+//Adds DBContext and makes conencciton to SQL server
 builder.Services.AddDbContext<SocialContext>(options =>
 {
-<<<<<<< HEAD
     options.UseSqlServer(builder.Configuration.GetConnectionString("TestRevConnect"));
-=======
-    options.UseSqlServer(builder.Configuration.GetConnectionString("YOUR CONNECTION STRING HERE"));
->>>>>>> cef2cb7398e5ce5ede05a383a85e714980563612
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
 
@@ -114,14 +108,13 @@ else
 {
     app.UseExceptionHandler("/Home/Error");
 }
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
+
 app.UseAuthorization();
 app.UseAuthentication();
-
-
 app.MapControllers();
-
 app.Run();
